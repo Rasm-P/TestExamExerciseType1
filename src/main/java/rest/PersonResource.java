@@ -10,6 +10,7 @@ import entities.Person;
 import facades.PersonFacade;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.Produces;
@@ -65,6 +66,7 @@ public class PersonResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed("admin")
     public PersonDTO createPerson(Person person) {
         Person newPerson = personFacade.createPerson(person);
         return new PersonDTO(newPerson);
@@ -73,6 +75,7 @@ public class PersonResource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("admin")
     public PersonDTO editPerson(Person person) {
         Person editPerson = personFacade.editPerson(person);
         return new PersonDTO(editPerson);
@@ -81,6 +84,7 @@ public class PersonResource {
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
+    @RolesAllowed("admin")
     public PersonDTO deletePerson(@PathParam("id") Long id) {
         Person deletedPerson = personFacade.removePerson(id);
         return new PersonDTO(deletedPerson);
