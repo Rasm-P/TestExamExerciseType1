@@ -8,6 +8,10 @@ package rest;
 import dto.AddressDTO;
 import entities.Address;
 import facades.AddressFacade;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.servers.Server;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.Context;
@@ -27,6 +31,27 @@ import utils.EMF_Creator;
  *
  * @author rasmu
  */
+@OpenAPIDefinition(
+        info = @Info(
+                title = "TestExamExerciseType1",
+                version = "0.1",
+                description = "Backend of the Sem3 Exam project"
+        ),
+        tags = {
+            @Tag(name = "Address endpoint", description = "Resource used for adding, editing and deleting address entities")
+        },
+        servers = {
+            @Server(
+                    description = "For Local host testing",
+                    url = "http://localhost:8080/TestExamExerciseType1"
+            ),
+            @Server(
+                    description = "Server API",
+                    url = "https://barfodpraetorius.dk/TestExamExerciseType1"
+            )
+
+        }
+)
 @Path("address")
 public class AddressResource {
 

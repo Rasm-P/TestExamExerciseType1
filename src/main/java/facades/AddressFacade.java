@@ -68,7 +68,7 @@ public class AddressFacade {
             Address address = em.find(Address.class, id);
 
             for (Person p : PersonFacade.getFacade(emf).getAllPersons()) {
-                if (p.getAddress().getId() == id) {
+                if (p.getAddress().getId().equals(address.getId())) {
                     p.setAddress(null);
                     em.merge(p);
                 }
