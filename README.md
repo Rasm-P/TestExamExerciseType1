@@ -1,8 +1,8 @@
-[![Build Status](https://travis-ci.org/Rasm-P/testPipeline.svg?branch=master)](https://travis-ci.org/Rasm-P/testPipeline)
+[![Build Status](https://travis-ci.org/Rasm-P/TestExamExerciseType1.svg?branch=master)](https://travis-ci.org/Rasm-P/TestExamExerciseType1)
 
 *This project is meant as start code for future projects and exercises.*
 
-*Projects which are expected to use this start-code are projects that require all, or most of the following technologies:*
+*Projects which are expected to use this start code are projects that require all, or most of the following technologies:*
  - *JPA and REST*
 - *Testing, including database test*
 - *Testing, including tests of REST-API's*
