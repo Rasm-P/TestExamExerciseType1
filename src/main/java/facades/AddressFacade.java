@@ -5,6 +5,8 @@
  */
 package facades;
 
+import entities.Address;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 /**
@@ -31,6 +33,43 @@ public class AddressFacade {
             instance = new AddressFacade();
         }
         return instance;
+    }
+    
+    public Address createAddress(Address address) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(address);
+            em.getTransaction().commit();
+            return address;
+        } finally {
+            em.close();
+        }
+    }
+
+    public Address editAddress(Address address) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.merge(address);
+            em.getTransaction().commit();
+            return address;
+        } finally {
+            em.close();
+        }
+    }
+
+    public Address removeAddress(Long id) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Address address = em.find(Address.class, id);
+            em.remove(em.merge(address));
+            em.getTransaction().commit();
+            return address;
+        } finally {
+            em.close();
+        }
     }
     
     

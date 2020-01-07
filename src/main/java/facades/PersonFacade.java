@@ -95,12 +95,12 @@ public class PersonFacade {
 
     public Person removePerson(Long id) {
         EntityManager em = emf.createEntityManager();
-        Person p = em.find(Person.class, id);
+        Person person = em.find(Person.class, id);
         try {
             em.getTransaction().begin();
-            em.remove(em.merge(p));
+            em.remove(em.merge(person));
             em.getTransaction().commit();
-            return p;
+            return person;
         } finally {
             em.close();
         }
