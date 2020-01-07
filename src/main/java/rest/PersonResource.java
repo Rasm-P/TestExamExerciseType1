@@ -7,9 +7,14 @@ package rest;
 
 import dto.PersonDTO;
 import entities.Person;
+import entities.User;
 import facades.PersonFacade;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.servers.Server;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.ArrayList;
@@ -67,6 +72,12 @@ public class PersonResource {
     @GET
     @Path("/allperons")
     @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "A list of all persons for all clients",
+            tags = {"Person endpoint"},
+            responses = {
+                @ApiResponse(
+                        content = @Content(mediaType = "application/json", schema = @Schema(implementation = PersonDTO.class))),
+                @ApiResponse(responseCode = "200", description = "A list of all persons was returned")})
     public List<PersonDTO> getAllPersons() {
         List<Person> person = personFacade.getAllPersons();
         List<PersonDTO> dto = new ArrayList<>();
@@ -79,6 +90,12 @@ public class PersonResource {
     @GET
     @Path("/allperonsbyhobby/{hobby}")
     @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "A list of all persons by hobby, accessible for all clients",
+            tags = {"Person endpoint"},
+            responses = {
+                @ApiResponse(
+                        content = @Content(mediaType = "application/json", schema = @Schema(implementation = PersonDTO.class))),
+                @ApiResponse(responseCode = "200", description = "A list of all persons by hobby was returned")})
     public List<PersonDTO> getPersonsByHobby(@PathParam("hobby") String hobby) {
         List<Person> person = personFacade.getPersonsByHobby(hobby);
         List<PersonDTO> dto = new ArrayList<>();
@@ -92,6 +109,13 @@ public class PersonResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed("admin")
+    @Operation(summary = "Endpoint for admin roles to create a person",
+            tags = {"Person endpoint"},
+            responses = {
+                @ApiResponse(
+                        content = @Content(mediaType = "application/json", schema = @Schema(implementation = User.class))),
+                @ApiResponse(responseCode = "200", description = "A person was created"),
+                @ApiResponse(responseCode = "400", description = "User token invalid or not authorized")})
     public PersonDTO createPerson(Person person) {
         Person newPerson = personFacade.createPerson(person);
         return new PersonDTO(newPerson);
@@ -101,6 +125,13 @@ public class PersonResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed("admin")
+    @Operation(summary = "Endpoint for admin roles to edit a person",
+            tags = {"Person endpoint"},
+            responses = {
+                @ApiResponse(
+                        content = @Content(mediaType = "application/json", schema = @Schema(implementation = User.class))),
+                @ApiResponse(responseCode = "200", description = "A person was edited"),
+                @ApiResponse(responseCode = "400", description = "User token invalid or not authorized")})
     public PersonDTO editPerson(Person person) {
         Person editPerson = personFacade.editPerson(person);
         return new PersonDTO(editPerson);
@@ -110,6 +141,13 @@ public class PersonResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
     @RolesAllowed("admin")
+    @Operation(summary = "Endpoint for admin roles to delete a person",
+            tags = {"Person endpoint"},
+            responses = {
+                @ApiResponse(
+                        content = @Content(mediaType = "application/json", schema = @Schema(implementation = User.class))),
+                @ApiResponse(responseCode = "200", description = "A person was deleted"),
+                @ApiResponse(responseCode = "400", description = "User token invalid or not authorized")})
     public PersonDTO deletePerson(@PathParam("id") Long id) {
         Person deletedPerson = personFacade.removePerson(id);
         return new PersonDTO(deletedPerson);

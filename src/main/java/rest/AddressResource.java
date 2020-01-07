@@ -6,10 +6,15 @@
 package rest;
 
 import dto.AddressDTO;
+import dto.HobbyDTO;
 import entities.Address;
 import facades.AddressFacade;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.servers.Server;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import javax.annotation.security.RolesAllowed;
@@ -65,6 +70,13 @@ public class AddressResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed("admin")
+    @Operation(summary = "Endpoint for admin roles to create an address",
+            tags = {"Address endpoint"},
+            responses = {
+                @ApiResponse(
+                        content = @Content(mediaType = "application/json", schema = @Schema(implementation = HobbyDTO.class))),
+                @ApiResponse(responseCode = "200", description = "An address was created"),
+                @ApiResponse(responseCode = "400", description = "User token invalid or not authorized")})
     public AddressDTO createAddress(Address address) {
         Address newAddress = addressFacade.createAddress(address);
         return new AddressDTO(newAddress);
@@ -74,6 +86,13 @@ public class AddressResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed("admin")
+    @Operation(summary = "Endpoint for admin roles to edit an address",
+            tags = {"Address endpoint"},
+            responses = {
+                @ApiResponse(
+                        content = @Content(mediaType = "application/json", schema = @Schema(implementation = HobbyDTO.class))),
+                @ApiResponse(responseCode = "200", description = "An address was edited"),
+                @ApiResponse(responseCode = "400", description = "User token invalid or not authorized")})
     public AddressDTO editAddress(Address address) {
         Address editAddress = addressFacade.editAddress(address);
         return new AddressDTO(editAddress);
@@ -83,6 +102,13 @@ public class AddressResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
     @RolesAllowed("admin")
+    @Operation(summary = "Endpoint for admin roles to delete an address",
+            tags = {"Address endpoint"},
+            responses = {
+                @ApiResponse(
+                        content = @Content(mediaType = "application/json", schema = @Schema(implementation = HobbyDTO.class))),
+                @ApiResponse(responseCode = "200", description = "An address was deleted"),
+                @ApiResponse(responseCode = "400", description = "User token invalid or not authorized")})
     public AddressDTO deleteAddress(@PathParam("id") Long id) {
         Address deletedAddress = addressFacade.removeAddress(id);
         return new AddressDTO(deletedAddress);

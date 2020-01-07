@@ -7,9 +7,14 @@ package rest;
 
 import dto.HobbyDTO;
 import entities.Hobby;
+import entities.User;
 import facades.HobbyFacade;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.servers.Server;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.ArrayList;
@@ -67,6 +72,12 @@ public class HobbyResource {
     @GET
     @Path("/allhobbies")
     @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Endpoint for all clients to get a list of all hobbies",
+            tags = {"Hobby endpoint"},
+            responses = {
+                @ApiResponse(
+                        content = @Content(mediaType = "application/json", schema = @Schema(implementation = HobbyDTO.class))),
+                @ApiResponse(responseCode = "200", description = "A list of all hobbies was returned")})
     public List<HobbyDTO> getAllHobbies() {
         List<Hobby> hobby = hobbyFacade.getAllHobbies();
         List<HobbyDTO> dto = new ArrayList<>();
@@ -80,6 +91,13 @@ public class HobbyResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @RolesAllowed("admin")
+    @Operation(summary = "Endpoint for admin roles to create a hobby",
+            tags = {"Hobby endpoint"},
+            responses = {
+                @ApiResponse(
+                        content = @Content(mediaType = "application/json", schema = @Schema(implementation = HobbyDTO.class))),
+                @ApiResponse(responseCode = "200", description = "A new hobby was created"),
+                @ApiResponse(responseCode = "400", description = "User token invalid or not authorized")})
     public HobbyDTO createHobby(Hobby hobby) {
         Hobby newHobby = hobbyFacade.createHobby(hobby);
         return new HobbyDTO(newHobby);
@@ -89,6 +107,13 @@ public class HobbyResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @RolesAllowed("admin")
+    @Operation(summary = "Endpoint for admin roles to edit a hobby",
+            tags = {"Hobby endpoint"},
+            responses = {
+                @ApiResponse(
+                        content = @Content(mediaType = "application/json", schema = @Schema(implementation = HobbyDTO.class))),
+                @ApiResponse(responseCode = "200", description = "A hobby was edited"),
+                @ApiResponse(responseCode = "400", description = "User token invalid or not authorized")})
     public HobbyDTO editHobby(Hobby hobby) {
         Hobby editHobby = hobbyFacade.editHobby(hobby);
         return new HobbyDTO(editHobby);
@@ -98,6 +123,13 @@ public class HobbyResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
     @RolesAllowed("admin")
+    @Operation(summary = "Endpoint for admin roles to delete a hobby",
+            tags = {"Hobby endpoint"},
+            responses = {
+                @ApiResponse(
+                        content = @Content(mediaType = "application/json", schema = @Schema(implementation = HobbyDTO.class))),
+                @ApiResponse(responseCode = "200", description = "A hobby was deleted"),
+                @ApiResponse(responseCode = "400", description = "User token invalid or not authorized")})
     public HobbyDTO deleteHobby(@PathParam("id") Long id) {
         Hobby deletedHobby = hobbyFacade.removeHobby(id);
         return new HobbyDTO(deletedHobby);
