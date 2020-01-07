@@ -5,6 +5,7 @@
  */
 package dto;
 
+import entities.Address;
 import entities.Hobby;
 import entities.Person;
 import java.util.List;
@@ -20,6 +21,7 @@ public class PersonDTO {
     private String firstName;
     private String lastName;
     private List<Hobby> hobbyList;
+    private Address address;
 
     public PersonDTO(Person person) {
         this.id = person.getId();
@@ -28,6 +30,7 @@ public class PersonDTO {
         this.firstName = person.getFirstName();
         this.lastName = person.getLastName();
         this.hobbyList = person.getHobbyList();
+        this.address = person.getAddress();
     }
 
     public Long getId() {
