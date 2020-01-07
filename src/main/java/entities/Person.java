@@ -5,6 +5,7 @@
  */
 package entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +55,7 @@ public class Person implements Serializable {
     private List<Hobby> hobbyList = new ArrayList<>();
     
     @ManyToOne
+    @JsonManagedReference
     private Address address;
     
     public Person() {

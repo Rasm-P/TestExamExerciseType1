@@ -72,6 +72,22 @@ public class PersonDTO {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+    public List<Hobby> getHobbyList() {
+        return hobbyList;
+    }
+
+    public void setHobbyList(List<Hobby> hobbyList) {
+        this.hobbyList = hobbyList;
+    }
+
+//    public Address getAddress() {
+//        return address;
+//    }
+//
+//    public void setAddress(Address address) {
+//        this.address = address;
+//    }
     
     
 }

@@ -5,6 +5,7 @@
  */
 package entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,7 @@ public class Address implements Serializable {
     private String zip;
     
     @OneToMany(mappedBy = "address")
+    @JsonBackReference
     private List<Person> personList = new ArrayList<>();
     
     public Address() {
