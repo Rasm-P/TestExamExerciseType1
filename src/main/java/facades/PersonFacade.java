@@ -64,6 +64,7 @@ public class PersonFacade {
     public Person createPerson(Person p) {
         EntityManager em = emf.createEntityManager();
         try {
+            em.getTransaction().begin();
             if (p.getAddress().getId() == null) {
                 em.persist(p.getAddress());
             }

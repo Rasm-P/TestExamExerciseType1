@@ -6,6 +6,7 @@
 package facades;
 
 import entities.Address;
+import entities.Person;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
@@ -34,7 +35,7 @@ public class AddressFacade {
         }
         return instance;
     }
-    
+
     public Address createAddress(Address address) {
         EntityManager em = emf.createEntityManager();
         try {
@@ -60,10 +61,19 @@ public class AddressFacade {
     }
 
     public Address removeAddress(Long id) {
+
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
             Address address = em.find(Address.class, id);
+
+            for (Person p : PersonFacade.getFacade(emf).getAllPersons()) {
+                if (p.getAddress().getId() == id) {
+                    p.setAddress(null);
+                    em.merge(p);
+                }
+            }
+
             em.remove(em.merge(address));
             em.getTransaction().commit();
             return address;
@@ -71,6 +81,5 @@ public class AddressFacade {
             em.close();
         }
     }
-    
-    
+
 }
