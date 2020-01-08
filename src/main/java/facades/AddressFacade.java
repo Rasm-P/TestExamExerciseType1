@@ -7,8 +7,10 @@ package facades;
 
 import entities.Address;
 import entities.Person;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -36,6 +38,17 @@ public class AddressFacade {
         return instance;
     }
 
+    public List<Address> getAllAddresses() {
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<Address> query
+                    = em.createQuery("SELECT a FROM Address a", Address.class);
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
     public Address createAddress(Address address) {
         EntityManager em = emf.createEntityManager();
         try {

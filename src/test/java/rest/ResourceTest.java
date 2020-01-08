@@ -122,6 +122,16 @@ public class ResourceTest {
     private void logOut() {
         securityToken = null;
     }
+    
+    @Test
+    public void testGetAllAddresses() {
+        given()
+                .contentType("application/json")
+                .get("/address/alladdresses").then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("size", is(2));
+    }
 
     @Test
     public void testCreateAddress() {

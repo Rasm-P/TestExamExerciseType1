@@ -17,12 +17,15 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.servers.Server;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
@@ -66,6 +69,24 @@ public class AddressResource {
     @Context
     SecurityContext securityContext;
 
+    @GET
+    @Path("/alladdresses")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "A list of all addresses for all clients",
+            tags = {"Address endpoint"},
+            responses = {
+                @ApiResponse(
+                        content = @Content(mediaType = "application/json", schema = @Schema(implementation = AddressDTO.class))),
+                @ApiResponse(responseCode = "200", description = "A list of all addresses was returned")})
+    public List<AddressDTO> getAllPersons() {
+        List<Address> address = addressFacade.getAllAddresses();
+        List<AddressDTO> dto = new ArrayList<>();
+        for (Address a : address) {
+            dto.add(new AddressDTO(a));
+        }
+        return dto;
+    }
+    
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
