@@ -93,7 +93,6 @@ public class ResourceTest {
 
             person2.addHobby(hobby);
             person2.addHobby(hobby2);
-            address2.addPerson(person2);
             person2.setAddress(address2);
 
             em.persist(hobby2);

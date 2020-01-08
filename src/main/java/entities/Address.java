@@ -92,15 +92,15 @@ public class Address implements Serializable {
         this.zip = zip;
     }
 
-    public List<Person> getPersons() {
-        return personList;
-    }
-
-    public void setPersons(List<Person> persons) {
-        this.personList = persons;
-    }
-    
-    public void addPerson(Person person) {
-        personList.add(person);
-    }
+//    public List<Person> getPersons() {
+//        return personList;
+//    }
+//
+//    public void setPersons(List<Person> persons) {
+//        this.personList = persons;
+//    }
+//    
+//    public void addPerson(Person person) {
+//        personList.add(person);
+//    }
 }
