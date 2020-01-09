@@ -20,6 +20,7 @@ public class HobbyFacade {
     private static HobbyFacade instance;
     private static EntityManagerFactory emf;
 
+    //Private Constructor to ensure Singleton
     private HobbyFacade() {
     }
 
