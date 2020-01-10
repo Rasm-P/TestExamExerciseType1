@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/Rasm-P/TestExamExerciseType1.svg?branch=master)](https://travis-ci.org/Rasm-P/TestExamExerciseType1)
 
-Deployment: testexamexercisetype1front.surge.sh
+Deployment: http://testexamexercisetype1front.surge.sh/#/
 
 *This project is meant as start code for future projects and exercises.*
 
